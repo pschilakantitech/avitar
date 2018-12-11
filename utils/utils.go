@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"fmt"
 	"io"
+	"math/rand"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -15,6 +16,12 @@ var linkRex = regexp.MustCompile("[^a-zA-Z0-9]+")
 func MD5String(value string) string {
 	h := md5.New()
 	io.WriteString(h, value)
+	return fmt.Sprintf("%x", h.Sum(nil))
+}
+
+func RandomMD5Hash() string {
+	h := md5.New()
+	io.WriteString(h, randomString(50))
 	return fmt.Sprintf("%x", h.Sum(nil))
 }
 
@@ -94,4 +101,16 @@ func OpenLogfile(file string) (*os.File, error) {
 	}
 
 	return Reopen(file)
+}
+
+func randomString(l int) string {
+	bytes := make([]byte, l)
+	for i := 0; i < l; i++ {
+		bytes[i] = byte(randInt(65, 90))
+	}
+	return string(bytes)
+}
+
+func randInt(min int, max int) int {
+	return min + rand.Intn(max-min)
 }

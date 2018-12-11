@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/pschilakantitech/avitar/utils"
+	"github.com/chilakantip/avitar/utils"
 )
 
 // Logger is the proxy to all the logging methods.
@@ -25,9 +25,6 @@ type Config struct {
 	AppEnv string
 	Debug bool
 
-	// NOTE: Kept for backward compatibility,
-	// it is obsoleted by Logger.Writer
-	// TODO: Remove this (but will require backward incompatible change, though minor).
 	Writer io.Writer
 }
 
